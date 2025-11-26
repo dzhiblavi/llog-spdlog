@@ -58,4 +58,4 @@ struct Config {
     std::map<std::string, LoggerConfig> loggers;
 };
 
-}  // namespace log
+}  // namespace llog

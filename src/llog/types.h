@@ -19,4 +19,4 @@ enum class Level : std::underlying_type_t<spdlog::level::level_enum> {
     Off = spdlog::level::off,
 };
 
-}  // namespace log
+}  // namespace llog
