@@ -28,6 +28,7 @@ struct SinkConfig {
     static constexpr size_t DefaultMaxSize = 1ULL << 20ULL;
     static constexpr size_t DefaultMaxNumFiles = 5;
 
+    Level level = Level::Trace;
     SinkType type = SinkType::Stdout;
     bool colors = false;
     std::string path;

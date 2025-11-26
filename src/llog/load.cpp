@@ -39,32 +39,37 @@ std::string absolute(const std::string& path) {
 constexpr auto GlobalLoggerName = "global";
 
 spdlog::sink_ptr loadSink(const SinkConfig& s) {
-    switch (s.type) {
-        using enum SinkType;
+    auto sink = [&] -> spdlog::sink_ptr {
+        switch (s.type) {
+            using enum SinkType;
 
-        case Stdout:
-            if (s.colors) {
-                return std::make_shared<spdlog::sinks::stdout_color_sink_mt>();
-            }
-            return std::make_shared<spdlog::sinks::stdout_sink_mt>();
+            case Stdout:
+                if (s.colors) {
+                    return std::make_shared<spdlog::sinks::stdout_color_sink_mt>();
+                }
+                return std::make_shared<spdlog::sinks::stdout_sink_mt>();
 
-        case Stderr:
-            if (s.colors) {
-                return std::make_shared<spdlog::sinks::stderr_color_sink_mt>();
-            }
-            return std::make_shared<spdlog::sinks::stderr_sink_mt>();
+            case Stderr:
+                if (s.colors) {
+                    return std::make_shared<spdlog::sinks::stderr_color_sink_mt>();
+                }
+                return std::make_shared<spdlog::sinks::stderr_sink_mt>();
 
-        case File:
-            return std::make_shared<spdlog::sinks::basic_file_sink_mt>(absolute(s.path));
+            case File:
+                return std::make_shared<spdlog::sinks::basic_file_sink_mt>(absolute(s.path));
 
-        case RotatingFile:
-            return std::make_shared<spdlog::sinks::rotating_file_sink_mt>(
-                absolute(s.path), s.max_size, s.max_num_files);
+            case RotatingFile:
+                return std::make_shared<spdlog::sinks::rotating_file_sink_mt>(
+                    absolute(s.path), s.max_size, s.max_num_files);
 
-        case DailyFile:
-            return std::make_shared<spdlog::sinks::daily_file_sink_mt>(
-                absolute(s.path), s.hour, s.minute);
-    }
+            case DailyFile:
+                return std::make_shared<spdlog::sinks::daily_file_sink_mt>(
+                    absolute(s.path), s.hour, s.minute);
+        }
+    }();
+
+    sink->set_level(static_cast<spdlog::level::level_enum>(s.level));
+    return sink;
 }
 
 }  // namespace
