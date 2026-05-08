@@ -1,6 +1,6 @@
-option(LLOGCONF_BUILD_TESTS "Build tests" ON)
+option(LLOG_BUILD_TESTS "Build tests" ON)
 
-if(LLOGCONF_BUILD_TESTS)
+if(LLOG_BUILD_TESTS)
     if (PROJECT_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR)
         enable_testing()
     endif()
