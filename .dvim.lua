@@ -1,4 +1,4 @@
-local merge = require("merge")
+local merge = require("tools").merge
 local home = os.getenv("HOME")
 local c = require("config").default
 local p = c.plugins
