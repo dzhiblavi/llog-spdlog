@@ -1,9 +1,9 @@
 option(LLOG_BUILD_TESTS "Build tests" ON)
 
-if(LLOG_BUILD_TESTS)
-    if (PROJECT_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR)
-        enable_testing()
-    endif()
+if(LLOG_BUILD_TESTS AND CMAKE_PROJECT_NAME STREQUAL "llog" AND BUILD_TESTING)
+    message(STATUS "llog: building tests")
+
+    enable_testing()
 
     function(add_test path)
         include(CTest)
@@ -21,8 +21,9 @@ if(LLOG_BUILD_TESTS)
         catch_discover_tests(${name} DISCOVERY_MODE PRE_TEST WORKING_DIRECTORY
                              ${CMAKE_CURRENT_SOURCE_DIR})
     endfunction(add_test)
-
 else()
+    message(STATUS "llog: not building tests")
+
     function(add_test path)
         # nothing
     endfunction()
