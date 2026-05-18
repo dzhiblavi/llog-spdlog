@@ -20,7 +20,5 @@ include(./cmake/IPO.cmake)
 include(./cmake/CompileOptions.cmake)
 include(./cmake/Werror.cmake)
 
-include(./cmake/Testing.cmake)
-
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src)
 add_subdirectory(src)
